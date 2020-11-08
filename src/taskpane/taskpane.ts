@@ -9,7 +9,32 @@ Office.initialize = () => {
   document.getElementById("sideload-msg").style.display = "none";
   document.getElementById("app-body").style.display = "flex";
   document.getElementById("run").onclick = run;
+  document.getElementById("Template").onclick = onclick_Template;
+  document.getElementById("SeismicNonStructural").onclick = onclick_SeismicNonStructural;
 };
+
+async function onclick_Template() {
+  
+}
+
+import { SeismicNonStructuralComponents_Controller } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Controller";
+async function onclick_SeismicNonStructural() {
+  let calcBlock = new SeismicNonStructuralComponents_Controller();
+  try {
+    await Excel.run(async context => {
+      const range = context.workbook.getSelectedRange();
+      range.load("columnIndex");
+      range.load("rowIndex");
+      await context.sync();
+      let row : number = range.rowIndex;
+      let col : number = range.columnIndex;
+      calcBlock.ResultsToExcel(range, row, col);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 async function run() {
   try {

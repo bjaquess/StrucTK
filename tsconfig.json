@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "experimentalDecorators": true,
     "jsx": "react",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "outDir": "lib",
     "sourceMap": true,
     "target": "es5",
@@ -13,6 +13,7 @@
       "dom"
     ]
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",

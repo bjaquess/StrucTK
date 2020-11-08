@@ -1,66 +1,23 @@
-﻿/**
- * Adds two numbers.
- * @customfunction
- * @param first First number
- * @param second Second number
- * @returns The sum of the two numbers.
- */
-/* global clearInterval, console, setInterval */
-
-export function add(first: number, second: number): number {
-  return first + second;
-}
+﻿
+//import { SeismicNonStructuralComponents_Model } from '../TKClasses/SeismicNonstructural';
+import { SeismicNonStructuralComponents_Model } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Model";
 
 /**
- * Displays the current time once a second.
- * @customfunction
- * @param invocation Custom function handler
+ * Seismic loads for non-structural elements
+ * @customfunction seismicNonstructural
+ * @param {number} Sds Design spectral acceleration
+ * @param {number} ap Component-specific coefficient
+ * @param {number} Rp Component-specific coefficient
+ * @param {number} Ip Importance factor
+ * @param {number} z Height of component within building
+ * @param {number} h Height of building
+ * @returns {any[][]} The seismic design load in the horizontal direction.
  */
-export function clock(invocation: CustomFunctions.StreamingInvocation<string>): void {
-  const timer = setInterval(() => {
-    const time = currentTime();
-    invocation.setResult(time);
-  }, 1000);
-
-  invocation.onCanceled = () => {
-    clearInterval(timer);
-  };
+export function seismicNonstructural(Sds : number, ap : number, Rp : number, Ip : number, z : number, h : number, Wp : number) : any[][] {
+  let nsc = new SeismicNonStructuralComponents_Model();
+  return nsc.ResultsArray(Sds, ap, Rp, Ip, z, h, Wp);
 }
 
-/**
- * Returns the current time.
- * @returns String with the current time formatted for the current locale.
- */
-export function currentTime(): string {
-  return new Date().toLocaleTimeString();
-}
 
-/**
- * Increments a value once a second.
- * @customfunction
- * @param incrementBy Amount to increment
- * @param invocation Custom function handler
- */
-export function increment(incrementBy: number, invocation: CustomFunctions.StreamingInvocation<number>): void {
-  let result = 0;
-  const timer = setInterval(() => {
-    result += incrementBy;
-    invocation.setResult(result);
-  }, 1000);
 
-  invocation.onCanceled = () => {
-    clearInterval(timer);
-  };
-}
 
-/**
- * Writes a message to console.log().
- * @customfunction LOG
- * @param message String to write.
- * @returns String to write.
- */
-export function logMessage(message: string): string {
-  console.log(message);
-
-  return message;
-}
