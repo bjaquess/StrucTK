@@ -39,7 +39,7 @@ export class SeismicNonStructuralComponents_Model {
     ResultsArray(Sds : number, ap : number, Rp : number, Ip : number, z : number, h : number, Wp : number) : any[][] {
         let results = [];
         let row1 = [];
-        let fp = this.Fp(ap, Rp, Sds, Ip, z, h, Wp);
+        let fp = this.Fp(Sds, ap, Rp, Ip, z, h, Wp);
         let fpMax = this.FpMax(Sds, Ip, Wp);
         let fpMin = this.FpMin(Sds, Ip, Wp);
 

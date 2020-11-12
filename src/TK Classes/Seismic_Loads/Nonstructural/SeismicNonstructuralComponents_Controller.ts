@@ -1,15 +1,16 @@
-/* global Excel */
+/* global  */
 
 
-class InputBlock {
+// class InputBlock {
 
-}
+// }
 
-class OutputBlock {
+// class OutputBlock {
 
-}
+// }
 
 import { CalcParameter } from "../../../Builder Classes/CalcParameter";
+// eslint-disable-next-line no-unused-vars
 import { Cell } from "../../../Builder Classes/Cell";
 
 export class SeismicNonStructuralComponents_Controller {
@@ -21,8 +22,8 @@ export class SeismicNonStructuralComponents_Controller {
     originXlCellRow : number;
     originXlCellCol : number;
 
-    inputBlock : InputBlock;
-    outputBlock : OutputBlock;
+    // inputBlock : InputBlock;
+    // outputBlock : OutputBlock;
 
     InputParameters : { [index : string] : {CalcParam: CalcParameter}} = {};
 

@@ -13,8 +13,26 @@ Office.initialize = () => {
   document.getElementById("SeismicNonStructural").onclick = onclick_SeismicNonStructural;
 };
 
+import { Template_Controller } from "../TK Classes/Template/Template_Controller";
 async function onclick_Template() {
-  
+  // *** Customize these settings ***************************
+  let calcBlock = new Template_Controller(true, 'Template');
+  // *********************************************************
+  try {
+    if(calcBlock.onNewSheet) {
+      await calcBlock.UI.TargetLocationOnNewSheet(calcBlock.trialSheetName)
+    }
+    else {
+      await calcBlock.UI.TargetLocationSelectedCell()
+    }
+    await Excel.run(async context => {
+      const range = context.workbook.getSelectedRange();
+      range.load("rowIndex");
+      range.load("columnIndex");
+      await context.sync();
+      calcBlock.Execute(range, range.rowIndex, range.columnIndex)
+    });
+  } catch (error) {console.error(error)}
 }
 
 import { SeismicNonStructuralComponents_Controller } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Controller";

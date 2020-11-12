@@ -1,7 +1,4 @@
-﻿
-//import { SeismicNonStructuralComponents_Model } from '../TKClasses/SeismicNonstructural';
-import { SeismicNonStructuralComponents_Model } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Model";
-
+﻿import { SeismicNonStructuralComponents_Model } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Model";
 /**
  * Seismic loads for non-structural elements
  * @customfunction seismicNonstructural
@@ -19,5 +16,16 @@ export function seismicNonstructural(Sds : number, ap : number, Rp : number, Ip 
 }
 
 
+import { Template_Model } from "../TK Classes/Template/Template_Model";
+/**
+ * Template for StrucTK design aids
+ * @customfunction template
+ * @param {number} b Width
+ * @param {number} h Height
+ */
+export function template(b: number, h: number): any[][] {
+  let results = new Template_Model();
+  return results.ResultsArray(b, h);
+}
 
 
