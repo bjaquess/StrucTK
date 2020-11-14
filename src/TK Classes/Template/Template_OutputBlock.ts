@@ -30,11 +30,16 @@ export class Template_OutputBlock {
         this.AddCellRightOfLast(FormatTypes.IntermediateResults);
         this.AddCellRightOfLast(FormatTypes.Units);
         this.AddCellRightOfLast(FormatTypes.Explanatory);
-
     }
 
+    FormulaLocation(): [number, number] {
+        let row: number = 0 - this.relativeInputBlockOrigin[0];
+        let col: number = 0 - this.relativeInputBlockOrigin[1];
+        return [row, col];
+    }
+    
     AddCellRightOfLast(cellType: FormatTypes) {
-        this.AddCellRelativeToLast(cellType, [0,1])
+        this.AddCellRelativeToLast(cellType, [0,1]);
     }
 
     AddCellCurrentLocation(cellType: FormatTypes) {
@@ -48,7 +53,7 @@ export class Template_OutputBlock {
         let c = new GenericCell();
         c.format = GetFormatType(cellType);
         this.row = this.row + relativeLocation[0];
-        this.row = this.col + relativeLocation[1];
+        this.col = this.col + relativeLocation[1];
         c.location = [this.row, this.col];
         this.cellStack.push(c);
     }

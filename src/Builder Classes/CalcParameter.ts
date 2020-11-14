@@ -1,7 +1,7 @@
-import { BlankCell, CheckCell, EquationCell, ExplanatoryCell, IntermediateResultsCell, FinalResultsCell, InputCell, LabelCell, UnitsCell, ReferenceCell, TitleCell} from './Cell';
+import { CheckCell, EquationCell, ExplanatoryCell, IntermediateResultsCell, FinalResultsCell, InputCell, LabelCell, UnitsCell, ReferenceCell, TitleCell} from './Cell';
 
 export class CalcParameter {
-    BlankCell : BlankCell;
+    //BlankCell : BlankCell;
     CheckCell = new CheckCell();
     EquationCell = new EquationCell();
     ExplanatoryCell = new ExplanatoryCell();

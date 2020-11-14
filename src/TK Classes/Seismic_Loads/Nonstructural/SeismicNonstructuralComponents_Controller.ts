@@ -12,6 +12,7 @@
 import { CalcParameter } from "../../../Builder Classes/CalcParameter";
 // eslint-disable-next-line no-unused-vars
 import { Cell } from "../../../Builder Classes/Cell";
+import { CellAddress } from "../../../Builder Functions/CellAddress";
 
 export class SeismicNonStructuralComponents_Controller {
     private _formula : string;
@@ -378,7 +379,8 @@ export class SeismicNonStructuralComponents_Controller {
     }
 }
 
-function CellAddress(origin : [number, number], relativeLoc : [number, number]) : string {
+
+/* function CellAddress(origin : [number, number], relativeLoc : [number, number]) : string {
     let cellAddress : string;
     let originRow : number = origin[0];
     let originCol : number = origin[1];
@@ -411,3 +413,4 @@ function CellAddress(origin : [number, number], relativeLoc : [number, number]) 
     return cellAddress;
 }
 
+ */

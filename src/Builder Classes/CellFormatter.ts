@@ -1,4 +1,4 @@
-//import { Format } from "../Component Classes/Format";
+// eslint-disable-next-line no-unused-vars
 import { Format } from "../Builder Classes/Format";
 
 export class CellFormatter {
@@ -35,13 +35,21 @@ export class CellFormatter {
 
         if (format.FontSize) {cell.format.font.size = format.FontSize}
 
-        if (format.Border) {
+        if (format.BorderAll) {
             cell.format.borders.getItem('EdgeTop').style = 'Continuous';
             cell.format.borders.getItem('EdgeBottom').style = 'Continuous';
             cell.format.borders.getItem('EdgeLeft').style = 'Continuous';
             cell.format.borders.getItem('EdgeRight').style = 'Continuous'
         }
 
+        if (format.BorderTopBott) {
+            cell.format.borders.getItem('EdgeTop').style = 'Continuous';
+            cell.format.borders.getItem('EdgeTop').color = 'White';
+            cell.format.borders.getItem('EdgeTop').weight = 'Medium';
+            cell.format.borders.getItem('EdgeBottom').style = 'Continuous';
+            cell.format.borders.getItem('EdgeBottom').color = 'White';
+            cell.format.borders.getItem('EdgeBottom').weight = 'Medium';
+        }
         if (format.Number) {cell.numberFormat = [[format.Number]]}
     }
    

@@ -1,17 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { CellFormatter } from "../Builder Classes/CellFormatter";
 
-export interface Format {
-    Alignment : string;
-    Bold : boolean;
-    Underline : boolean;
-    Italic : boolean;
-    Background : string;
-    Font: string;
-    FontColor : string;
-    FontSize: number;
-    Border : boolean;
+export class Format {
+    Italic: boolean = false;
+    Alignment: string = 'Center';
+    Bold: boolean = false;
+    Underline: boolean = false;
+    Background: string = 'none';
+    Font: string = 'Calibri';
+    FontColor: string = 'black';
+    FontSize: number = 11;
+    BorderAll: boolean = false;
+    BorderTopBott: boolean = false;
     Number : string;
-    Formatter : CellFormatter;
+    Formatter: CellFormatter = new CellFormatter();
 }
 
 export enum FormatTypes {
@@ -23,7 +25,8 @@ export enum FormatTypes {
     Equation,
     Units,
     Title,
-    Reference
+    Reference,
+    SectionDivider
 }
 
 export function GetFormatType(format: FormatTypes): Format {
@@ -37,135 +40,69 @@ export function GetFormatType(format: FormatTypes): Format {
         case FormatTypes.Units: { return new UnitsCellFormat }
         case FormatTypes.Title: { return new TitleCellFormat }
         case FormatTypes.Reference: { return new ReferenceCellFormat }
+        case FormatTypes.SectionDivider: { return new SectionDividerFormat }
         default: { return }
     }
 }
 
-export class LabelCellFormat implements Format {
-    Italic: boolean = false;
+export class LabelCellFormat extends Format {
     Alignment: string = 'Right';
-    Bold: boolean = false;
-    Underline: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
-    FontSize: number = 11;
-    Border: boolean = false;
-    Number : string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class InputCellFormat implements Format {
-    Italic: boolean = false;
-    Alignment: string = 'Center';
+export class InputCellFormat extends Format {
     Bold: boolean = true;
-    Underline: boolean = false;
     Background: string = 'DAEEF3';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
-    FontSize: number = 11;
-    Border: boolean = true;
+    BorderAll: boolean = true;
     Number : string = '0.00';
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class ExplanatoryCellFormat implements Format {
+export class ExplanatoryCellFormat extends Format {
     Italic: boolean = true;
     Alignment: string = 'Left';
-    Bold: boolean = false;
-    Underline: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
     FontColor: string = 'gray';
     FontSize: number = 10;
-    Border: boolean = false;
-    Number : string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class IntermediateResultsCellFormat implements Format {
-    Alignment: string = 'Center';
-    Bold: boolean = false;
-    Underline: boolean = false;
-    Italic: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
-    FontSize: number = 11;
-    Border: boolean = true;
+export class IntermediateResultsCellFormat extends Format {
+    BorderAll: boolean = true;
     Number: string = '0.00';
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class FinalResultsCellFormat implements Format {
-    Alignment: string = 'Center';
+export class FinalResultsCellFormat extends Format {
     Bold: boolean = true;
-    Underline: boolean = false;
-    Italic: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
     FontSize: number = 12;
-    Border: boolean = true;
+    BorderAll: boolean = true;
     Number: string = '0.00';
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class EquationCellFormat implements Format {
+export class EquationCellFormat extends Format {
     Alignment: string = 'Left';
-    Bold: boolean = false;
-    Underline: boolean = false;
     Italic: boolean = true;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
     FontSize: number = 10;
-    Border: boolean = false;
-    Number: string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
 
-export class UnitsCellFormat implements Format {
+export class UnitsCellFormat extends Format {
     Alignment: string = 'Left';
-    Bold: boolean = false;
-    Underline: boolean = false;
-    Italic: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
-    FontSize: number = 11;
-    Border: boolean = false;
-    Number : string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class TitleCellFormat implements Format {
+export class TitleCellFormat extends Format {
     Alignment: string = 'Left';
     Bold: boolean = true;
-    Underline: boolean = false;
-    Italic: boolean = false;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
     FontSize: number = 14;
-    Border: boolean = false;
-    Number : string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-export class ReferenceCellFormat implements Format {
+export class ReferenceCellFormat extends Format {
     Alignment: string = 'Left';
-    Bold: boolean = false;
-    Underline: boolean = false;
-    Italic: boolean = true;
-    Background: string = 'none';
-    Font: string = 'Calibri';
-    FontColor: string = 'black';
     FontSize: number = 10;
-    Border: boolean = false;
-    Number : string;
-    Formatter: CellFormatter = new CellFormatter();
 }
 
-
+export class SectionDividerFormat extends Format {
+    Alignment: string = 'Left';
+    Bold: boolean = true;
+    Background: string = 'C0C0C0'
+    Font: string = 'Calibri'
+    FontColor: string = 'white'
+    FontSize: number = 12;
+    BorderTopBott = true;    
+}

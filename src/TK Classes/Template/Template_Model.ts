@@ -1,8 +1,7 @@
 
 export class Template_Model {
 
-    constructor() {
-        
+    constructor() { 
     }
 
     A(b: number, h: number) {

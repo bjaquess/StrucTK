@@ -15,7 +15,7 @@ Office.initialize = () => {
 
 import { Template_Controller } from "../TK Classes/Template/Template_Controller";
 async function onclick_Template() {
-  // *** Customize these settings ***************************
+  // *** Customize this line *********************************
   let calcBlock = new Template_Controller(true, 'Template');
   // *********************************************************
   try {
