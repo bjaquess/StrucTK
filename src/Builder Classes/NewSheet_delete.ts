@@ -1,4 +1,4 @@
-export class NewSheet {
+/* export class NewSheet {
     trialSheetName: string;
     sheetName: string;
-}
+} */

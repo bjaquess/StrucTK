@@ -17,12 +17,16 @@ export class Template_InputBlock {
         this.AddCell( FormatTypes.Label, "b =", [2,0]);
         this.AddParameterCell(params.b.InputCell, [2,1]);
         this.AddParameterCell(params.b.UnitsCell, [2,2]);
-        //this.AddCell( FormatTypes.Units, "in", [2,2]);
         this.AddCell( FormatTypes.Label, "h =", [3,0]);
         this.AddParameterCell(params.d.InputCell, [3,1]);
         this.AddParameterCell(params.d.UnitsCell, [3,2]);
-        //this.AddParameterCell(10, [3,1]);
-        //this.AddCell( FormatTypes.Units, "in", [3,2]);
+        this.AddCell( FormatTypes.Label, "A =", [4,0]);
+        this.AddCell( FormatTypes.Explanatory, 'A = b h', [4,3]);
+        this.AddCell( FormatTypes.Label, "Ix =", [5,0]);
+        this.AddCell( FormatTypes.Explanatory, 'Ix = b h^3 / 12', [5,3]);
+        this.AddCell( FormatTypes.Label, "Zx =", [6,0]);
+        this.AddCell( FormatTypes.Explanatory, 'Zx = b h^2 / 4', [6,3]);
+
     }
 
     private AddCell(cellType: FormatTypes, contents: string | number, location: [number, number]) {

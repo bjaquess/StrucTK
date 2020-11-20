@@ -1,21 +1,16 @@
 
-import { Template_Model } from "./Template_Model"; 
+//import { Template_Model } from "./Template_Model"; 
 import { Template_UI } from "./Template_UI";
 //import { TemplateInputParameters } from "./Template_InputParameters";
 
 export class Template_Controller {
     // <-- Denotes line to customize for each new Design Block
-    model: Template_Model; // <--
+    //model: Template_Model; // <--
     UI: Template_UI; // <--
     
-    onNewSheet: boolean;
-    trialSheetName: string;
-
-    constructor(onNewSheet: boolean, trialSheetName: string) {
+    constructor() {
         this.UI = new Template_UI(); // <--
-        this.model = new Template_Model(); // <--
-        this.onNewSheet = onNewSheet;
-        this.trialSheetName = trialSheetName;
+        //this.model = new Template_Model(); // <--
     }
 
     async Execute(range: Excel.Range, row: number, col: number) {
@@ -27,9 +22,9 @@ export class Template_Controller {
         this.UI.InputBlock.Build(this.UI.InputParams);
         this.UI.OutputBlock.Build();
         //this.UI.InputParameters = TemplateInputParameters();
-        await this.UI.ApplyCellFormats(this.UI.InputBlock.CellStack());
-        await this.UI.ApplyCellContents(this.UI.InputBlock.CellStack());
-        await this.UI.ApplyCellFormats(this.UI.OutputBlock.CellStack());
+        //await this.UI.ApplyCellFormats(this.UI.InputBlock.CellStack());
+        //await this.UI.ApplyCellContents(this.UI.InputBlock.CellStack());
+        //await this.UI.ApplyCellFormats(this.UI.OutputBlock.CellStack());
         await this.UI.ApplyFormula(this.UI.OutputBlock.FormulaLocation());
         //this.UI.ResultsToExcel();
     }

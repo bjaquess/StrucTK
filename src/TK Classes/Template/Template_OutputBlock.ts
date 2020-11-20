@@ -1,35 +1,54 @@
 import { GenericCell } from "../../Builder Classes/Cell";
 import { FormatTypes, GetFormatType } from "../../Builder Classes/Format";
+import { Template_Model } from "../Template/Template_Model";
 
 export class Template_OutputBlock {
+    private model: Template_Model;
+    
     private cellStack: GenericCell[];
     private relativeInputBlockOrigin: [number, number];
-    private row: number;
-    private col: number;
+    private row: number = 0;
+    private col: number = 0;
 
     constructor() {
+        this.model = new Template_Model();
         this.cellStack = []
     }
 
     Build() {
-        this.relativeInputBlockOrigin = [-4,0];
-        this.row = 0 - this.relativeInputBlockOrigin[0];
-        this.col = 0 - this.relativeInputBlockOrigin[1];
+        // **** This is custom for each Block ****
+        //this.relativeInputBlockOrigin = [-4,-1];
+        // ***************************************
+        //this.row = 0 - this.relativeInputBlockOrigin[0];
+        //this.col = 0 - this.relativeInputBlockOrigin[1];
 
-        this.AddCellCurrentLocation(FormatTypes.Label);
-        this.AddCellRightOfLast(FormatTypes.IntermediateResults);
+        this.AddCellCurrentLocation(FormatTypes.IntermediateResults);
         this.AddCellRightOfLast(FormatTypes.Units);
-        this.AddCellRightOfLast(FormatTypes.Explanatory);
 
-        this.AddCellRelativeToLast(FormatTypes.Label, [1,-3]);
-        this.AddCellRightOfLast(FormatTypes.IntermediateResults);
+        this.AddCellRelativeToLast(FormatTypes.IntermediateResults, [1, -1]);
         this.AddCellRightOfLast(FormatTypes.Units);
-        this.AddCellRightOfLast(FormatTypes.Explanatory);
 
-        this.AddCellRelativeToLast(FormatTypes.Label, [1,-3]);
-        this.AddCellRightOfLast(FormatTypes.IntermediateResults);
+        this.AddCellRelativeToLast(FormatTypes.IntermediateResults, [1, -1]);
         this.AddCellRightOfLast(FormatTypes.Units);
-        this.AddCellRightOfLast(FormatTypes.Explanatory);
+    }
+
+    ResultsArray() {
+
+    }
+
+    FormatStack(relativeInputBlockRow: number, relativeInputBlockCol: number): GenericCell[] {
+        let formatStack: GenericCell[] = [];
+        this.cellStack.forEach(_cell => {
+            let currentRow = _cell.location[0];
+            let currentCol = _cell.location[1];
+            let newRow = currentRow - relativeInputBlockRow;
+            let newCol = currentCol - relativeInputBlockCol;
+            let newCell = new GenericCell();
+            newCell.format = _cell.format;
+            newCell.location = [newRow, newCol];
+            formatStack.push(newCell);
+        })
+        return formatStack;
     }
 
     FormulaLocation(): [number, number] {

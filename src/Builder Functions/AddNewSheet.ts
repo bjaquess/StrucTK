@@ -1,9 +1,6 @@
 /* global Excel */
 
-// eslint-disable-next-line no-unused-vars
-import { NewSheet } from "../Builder Classes/NewSheet";
-
-export async function AddNewSheet(newSht: NewSheet) {
+export async function AddNewSheet(trialSheetName: string) {
     try {
         await Excel.run(async context => {
             var sheets = context.workbook.worksheets;
@@ -11,13 +8,12 @@ export async function AddNewSheet(newSht: NewSheet) {
             sheets.load();
             await context.sync();
 
-            let trySheetName: string = newSht.trialSheetName;
+            let trySheetName: string = trialSheetName;
             let uniqueSheetName: boolean = true; 
             let keepTrying: boolean = true;
             let sheetNameSuffix: number = 0;
 
             while (keepTrying) {
-                
                 context.workbook.worksheets.items.forEach(function (ws: Excel.Worksheet) {
                     if (ws.name == trySheetName) { uniqueSheetName = false }
                 });
@@ -27,7 +23,7 @@ export async function AddNewSheet(newSht: NewSheet) {
                 }
                 else {
                     sheetNameSuffix++;
-                    trySheetName = `${newSht.trialSheetName}${sheetNameSuffix.toString()}`
+                    trySheetName = `${trialSheetName}${sheetNameSuffix.toString()}`
                     uniqueSheetName = true;
                     if (sheetNameSuffix < 100) {
                         keepTrying = true;
