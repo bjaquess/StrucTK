@@ -13,8 +13,6 @@ Office.initialize = () => {
   document.getElementById("SeismicNonStructural").onclick = onclick_SeismicNonStructural;
 };
 
-import { AddNewSheet } from "../Builder Functions/AddNewSheet";
-
 
 import { Template_UI } from "../TK Classes/Template/Template_UI";
 async function onclick_Template() {
@@ -24,21 +22,24 @@ async function onclick_Template() {
   let trialSheetName: string = 'Template';
   // *********************************************************
   try {
-    if(onNewSheet) {
-      await AddNewSheet(trialSheetName);
-    }
+    await calcBlock.Initialize(onNewSheet, trialSheetName);
     await Excel.run(async context => {
       const range = context.workbook.getSelectedRange();
       range.load("rowIndex");
       range.load("columnIndex");
+      const ws = context.workbook.getSelectedRange().worksheet;
+      ws.load("name");
       await context.sync();
-      calcBlock.Execute(range, range.rowIndex, range.columnIndex)
+      const shapes = context.workbook.worksheets.getItem(ws.name).shapes;
+      const charts = context.workbook.worksheets.getItem(ws.name).charts;
+      
+      calcBlock.Execute(range, range.rowIndex, range.columnIndex, shapes, charts)
     });
   } catch (error) {console.error(error)}
 }
 
+
 import { SeismicNonStructuralComponents_Controller } from "../TK Classes/Seismic_Loads/Nonstructural/SeismicNonstructuralComponents_Controller";
-//import { AddNewSheet } from "src/Builder Functions/AddNewSheet";
 async function onclick_SeismicNonStructural() {
   let calcBlock = new SeismicNonStructuralComponents_Controller();
   try {

@@ -1,9 +1,9 @@
 
 //import { Template_Model } from "./Template_Model"; 
-import { Template_UI } from "./Template_UI";
+//import { Template_UI } from "./Template_UI";
 //import { TemplateInputParameters } from "./Template_InputParameters";
 
-export class Template_Controller {
+/* export class Template_Controller {
     // <-- Denotes line to customize for each new Design Block
     //model: Template_Model; // <--
     UI: Template_UI; // <--
@@ -25,8 +25,10 @@ export class Template_Controller {
         //await this.UI.ApplyCellFormats(this.UI.InputBlock.CellStack());
         //await this.UI.ApplyCellContents(this.UI.InputBlock.CellStack());
         //await this.UI.ApplyCellFormats(this.UI.OutputBlock.CellStack());
-        await this.UI.ApplyFormula(this.UI.OutputBlock.FormulaLocation());
+        
+        await this.UI.ApplyFormula(range, row, col, this.UI.OutputBlock.FormulaLocation());
+        
         //this.UI.ResultsToExcel();
     }
 
-}
+} */

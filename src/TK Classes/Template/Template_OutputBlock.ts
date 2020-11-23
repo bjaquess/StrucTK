@@ -17,10 +17,8 @@ export class Template_OutputBlock {
 
     Build() {
         // **** This is custom for each Block ****
-        //this.relativeInputBlockOrigin = [-4,-1];
+        this.relativeInputBlockOrigin = [-4,-1];
         // ***************************************
-        //this.row = 0 - this.relativeInputBlockOrigin[0];
-        //this.col = 0 - this.relativeInputBlockOrigin[1];
 
         this.AddCellCurrentLocation(FormatTypes.IntermediateResults);
         this.AddCellRightOfLast(FormatTypes.Units);
@@ -36,13 +34,13 @@ export class Template_OutputBlock {
 
     }
 
-    FormatStack(relativeInputBlockRow: number, relativeInputBlockCol: number): GenericCell[] {
+    FormatStack(): GenericCell[] {
         let formatStack: GenericCell[] = [];
         this.cellStack.forEach(_cell => {
             let currentRow = _cell.location[0];
             let currentCol = _cell.location[1];
-            let newRow = currentRow - relativeInputBlockRow;
-            let newCol = currentCol - relativeInputBlockCol;
+            let newRow = currentRow - this.relativeInputBlockOrigin[0];
+            let newCol = currentCol - this.relativeInputBlockOrigin[1];
             let newCell = new GenericCell();
             newCell.format = _cell.format;
             newCell.location = [newRow, newCol];

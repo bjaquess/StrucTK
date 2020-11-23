@@ -1,15 +1,12 @@
-import { GenericCell } from "../../Builder Classes/Cell";
-import { FormatTypes, GetFormatType } from "../../Builder Classes/Format";
+import { FormatTypes } from "../../Builder Classes/Format";
 // eslint-disable-next-line no-unused-vars
 import { Template_InputParams } from "./Template_InputParameters";
+import { InputBlock } from "../../Builder Classes/InputBlock";
 
-export class Template_InputBlock {
-    private cellStack: GenericCell[];
-    private inputParameters: GenericCell[];
-
+export class Template_InputBlock extends InputBlock {
+    
     constructor() {
-        this.cellStack = [];
-        //this.inputParameters = [];
+        super();
     }
 
     Build(params: Template_InputParams) {
@@ -27,30 +24,19 @@ export class Template_InputBlock {
         this.AddCell( FormatTypes.Label, "Zx =", [6,0]);
         this.AddCell( FormatTypes.Explanatory, 'Zx = b h^2 / 4', [6,3]);
 
+        this.AddCell( FormatTypes.Title, "Format Styles:", [8,0]);
+        this.AddCell( FormatTypes.Label, "Label Cell", [9,1]);
+        this.AddCellBelow( FormatTypes.Input, "Input Cell");
+        this.AddCellBelow( FormatTypes.Explanatory, "Explanatory Cell");
+        this.AddCellBelow( FormatTypes.Equation, "Equation Cell");
+        this.AddCellBelow( FormatTypes.Units, "Units Cell");
+        this.AddCellBelow( FormatTypes.Title, "Title Cell");
+        this.AddCellBelow( FormatTypes.Reference, "Reference Cell");
+        this.AddCellBelow( FormatTypes.SectionDivider, "Section Divider");
+        this.AddCellBelow( FormatTypes.IntermediateResults, "Intermediate Results");
+        this.AddCellBelow( FormatTypes.FinalResults, "Final Results");
+
+
     }
 
-    private AddCell(cellType: FormatTypes, contents: string | number, location: [number, number]) {
-        let c = new GenericCell();
-        c.format = GetFormatType(cellType);
-        c.contents = contents;
-        c.location = location;
-        this.cellStack.push(c)
-    }
-
-    private AddParameterCell(cell: GenericCell, location: [number, number]) {
-        //let c = new GenericCell();
-        //c.format = GetFormatType(FormatTypes.Input);
-        //c.contents = initialVal;
-        cell.location = location;
-        this.cellStack.push(cell);
-        //this.inputParameters.push(c);
-    }
-
-    CellStack(): GenericCell[] {
-        return this.cellStack
-    }
-
-    InputParameters(): GenericCell[] {
-        return this.inputParameters
-    }
 }
