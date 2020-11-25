@@ -6,13 +6,13 @@ export interface FigureFormat {
 
 export class FrameFormat implements FigureFormat {
     fillColor: string = "white";
-    lineColor: string = "black";
+    lineColor: string = "white";
     lineWeight: number = 0;
 
 }
 
 export class ConcreteSectionFormat implements FigureFormat {
-    fillColor: string = "lightGray";
+    fillColor: string = "#EAEAEA";
     lineColor: string = "black";
     lineWeight: number = 1;
 }

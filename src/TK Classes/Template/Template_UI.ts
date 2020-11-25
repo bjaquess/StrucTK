@@ -33,14 +33,16 @@ export class Template_UI extends UI {
         this.InputBlock.Build(this.InputParams);
         this.OutputBlock.Build();
 
+        this.Figures.Assemble();
+        this.Figures.Apply(shapes);
+        
         await ApplyCellFormats(range, this.InputBlock.CellStack());
         await ApplyCellFormats(range, this.OutputBlock.FormatStack());
         
         await ApplyCellContents(range, this.InputBlock.CellStack());
         await this.ApplyFormula(range, row, col, this.OutputBlock.FormulaLocation());
 
-        this.Figures.Assemble();
-        this.Figures.Apply(shapes);
+        
 
     }
 

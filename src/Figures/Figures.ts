@@ -24,5 +24,8 @@ export class Figures {
         let line = shapes.addLine(startLeft, startTop, endLeft, endTop);
         line.lineFormat.color = "black";
         line.lineFormat.weight = 3;
+        line.line.beginArrowheadStyle = "Stealth";
+        line.line.endArrowheadLength = "Short";
+        
     }
 }
