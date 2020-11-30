@@ -9,15 +9,43 @@ Office.initialize = () => {
   document.getElementById("sideload-msg").style.display = "none";
   document.getElementById("app-body").style.display = "flex";
   document.getElementById("run").onclick = run;
-  document.getElementById("Template").onclick = onclick_Template;
-  document.getElementById("SeismicNonStructural").onclick = onclick_SeismicNonStructural;
-};
 
+  document.getElementById('Template').onclick = onclick_Template;
+  document.getElementById('SeismicNonStructural').onclick = onclick_SeismicNonStructural;
+  document.getElementById('ConcRectFlexure').onclick = onclick_ConcRectFlexure;
+  document.getElementById('LoadComboTable').onclick = onclick_LoadCombinations;
+}
 
-import { Template_UI } from "../TK Classes/Template/Template_UI";
+import { onclick_LoadCombinations } from "../TK Classes/Load Combinations/LoadCombinations_Controller";
+
+import { ConcFlexure_Controller } from "../TK Classes/Concrete Flexure/ConcFlexure_Controller";
+async function onclick_ConcRectFlexure() {
+  // *** Customize this section ******************************
+  let calcBlock = new ConcFlexure_Controller();
+  let onNewSheet: boolean = true;
+  let trialSheetName: string = 'ConcFlexure';
+  // *********************************************************
+  try {
+    await calcBlock.Initialize(onNewSheet, trialSheetName);
+    await Excel.run(async context => {
+      const range = context.workbook.getSelectedRange();
+      range.load("rowIndex");
+      range.load("columnIndex");
+      const ws = context.workbook.getSelectedRange().worksheet;
+      ws.load("name");
+      await context.sync();
+      const shapes = context.workbook.worksheets.getItem(ws.name).shapes;
+      //const charts = context.workbook.worksheets.getItem(ws.name).charts;
+      
+      calcBlock.Execute(range, range.rowIndex, range.columnIndex, shapes)
+    });
+  } catch (error) {console.error(error)}
+}
+
+import { Template_Controller } from "../TK Classes/Template/Template_Controller";
 async function onclick_Template() {
   // *** Customize this section ******************************
-  let calcBlock = new Template_UI();
+  let calcBlock = new Template_Controller();
   let onNewSheet: boolean = true;
   let trialSheetName: string = 'Template';
   // *********************************************************

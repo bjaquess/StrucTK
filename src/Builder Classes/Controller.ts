@@ -2,7 +2,7 @@
 
 import { AddNewSheet } from "../Builder Functions/AddNewSheet";
 
-export class UI {
+export class Controller {
     //originXlCell: Excel.Range;
     //originXlCellRow: number;
     //originXlCellCol: number;
@@ -19,5 +19,9 @@ export class UI {
                 await AddNewSheet(_trialSheetName);
             }
         } catch (error) {console.error(error)}
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    async Execute(range: Excel.Range, row: number, col: number, shapes: Excel.ShapeCollection, charts: Excel.ChartCollection) {
     }
 }

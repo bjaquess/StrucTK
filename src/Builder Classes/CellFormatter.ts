@@ -18,11 +18,11 @@ export class CellFormatter {
                 break;
         }
         
-        cell.format.font.bold = format.Bold;
+        cell.format.font.bold = format.isBold;
         
-        cell.format.font.italic = format.Italic;
+        cell.format.font.italic = format.isItalic;
 
-        if (format.Underline) {cell.format.font.underline = 'Single'}
+        if (format.isUnderlined) {cell.format.font.underline = 'Single'}
         else {cell.format.font.underline = 'None'}
 
         if ((format.Background == null) || (format.Background == 'none')) {
@@ -35,14 +35,14 @@ export class CellFormatter {
 
         if (format.FontSize) {cell.format.font.size = format.FontSize}
 
-        if (format.BorderAll) {
+        if (format.hasBorderAll) {
             cell.format.borders.getItem('EdgeTop').style = 'Continuous';
             cell.format.borders.getItem('EdgeBottom').style = 'Continuous';
             cell.format.borders.getItem('EdgeLeft').style = 'Continuous';
             cell.format.borders.getItem('EdgeRight').style = 'Continuous'
         }
 
-        if (format.BorderTopBott) {
+        if (format.hasBorderTopBott) {
             cell.format.borders.getItem('EdgeTop').style = 'Continuous';
             cell.format.borders.getItem('EdgeTop').color = 'White';
             cell.format.borders.getItem('EdgeTop').weight = 'Medium';
@@ -50,7 +50,28 @@ export class CellFormatter {
             cell.format.borders.getItem('EdgeBottom').color = 'White';
             cell.format.borders.getItem('EdgeBottom').weight = 'Medium';
         }
+        
+        if (format.hasBorderBott) {
+            cell.format.borders.getItem('EdgeBottom').style = 'Continuous';
+            cell.format.borders.getItem('EdgeBottom').weight = 'Medium';
+        }
+
+        if (format.hasBorderLeftBott) {
+            cell.format.borders.getItem('EdgeBottom').style = 'Continuous';
+            cell.format.borders.getItem('EdgeBottom').weight = 'Medium';
+            cell.format.borders.getItem('EdgeLeft').style = 'Continuous';
+        }
+
         if (format.Number) {cell.numberFormat = [[format.Number]]}
+
+        if (format.isDropDownList) {
+            cell.dataValidation.rule = {
+                list: {
+                    inCellDropDown: true,
+                    source: format.DropDownListItems
+                }
+            }
+        }
     }
    
 }

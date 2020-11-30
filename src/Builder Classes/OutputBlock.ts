@@ -1,33 +1,16 @@
-import { GenericCell } from "../../Builder Classes/Cell";
-import { FormatType, GetFormatType } from "../../Builder Classes/Format";
-//import { Template_Model } from "../Template/Template_Model";
+import { GenericCell } from "../Builder Classes/Cell";
+// eslint-disable-next-line no-unused-vars
+import { FormatType, GetFormatType } from "../Builder Classes/Format";
 
-export class Template_OutputBlock {
-    //private model: Template_Model;
-    
-    private cellStack: GenericCell[];
+export class OutputBlock {
     relativeInputBlockOrigin: [number, number];
+
+    private cellStack: GenericCell[];
     private row: number = 0;
     private col: number = 0;
 
     constructor() {
-        //this.model = new Template_Model();
         this.cellStack = []
-    }
-
-    Build() {
-        // **** This is custom for each Block ****
-        this.relativeInputBlockOrigin = [-4,-1];
-        // ***************************************
-
-        this.AddCellCurrentLocation(FormatType.IntermediateResults);
-        this.AddCellRightOfLast(FormatType.Units);
-
-        this.AddCellRelativeToLast(FormatType.IntermediateResults, [1, -1]);
-        this.AddCellRightOfLast(FormatType.Units);
-
-        this.AddCellRelativeToLast(FormatType.IntermediateResults, [1, -1]);
-        this.AddCellRightOfLast(FormatType.Units);
     }
 
     FormatStack(): GenericCell[] {

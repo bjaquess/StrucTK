@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { InputParameter } from "../../Builder Classes/InputParameter";
 
-export function TemplateInputParamFunction(): {[index: string]: {param: InputParameter}} {
+/* export function TemplateInputParamFunction(): {[index: string]: {param: InputParameter}} {
     let params = {};
     
     let ip = new InputParameter();    
@@ -13,7 +13,7 @@ export function TemplateInputParamFunction(): {[index: string]: {param: InputPar
     params['d'] = { ip };
     
     return params;
-}
+}  */
 
 export class Template_InputParams {
     b: InputParameter;

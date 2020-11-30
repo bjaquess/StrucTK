@@ -1,7 +1,7 @@
 
 export class Template_Model {
-    private b: number;
-    private h: number;
+    //private b: number;
+    //private h: number;
     constructor() {
     }
 

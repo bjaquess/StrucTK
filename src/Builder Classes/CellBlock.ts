@@ -1,5 +1,5 @@
 import { GenericCell } from "./Cell";
-import { FormatTypes, GetFormatType } from "./Format";
+import { FormatType, GetFormatType } from "./Format";
 
 export class CellBlock {
     CellStack: GenericCell[];
@@ -12,7 +12,7 @@ export class CellBlock {
         this.CellStack.push(c)
     }
 
-    AddNewCell(format: FormatTypes, location: [number, number], contents: string | number) {
+    AddNewCell(format: FormatType, location: [number, number], contents: string | number) {
         let c = new GenericCell();
         c.location = location;
         c.contents = contents;
@@ -40,7 +40,7 @@ export class CellBlock {
         return location
     }
 
-    AddNewCellRightOfLast(format: FormatTypes, contents: string | number) {
+    AddNewCellRightOfLast(format: FormatType, contents: string | number) {
         let row: number;
         let col: number;
         let lastLoc: [number, number];
@@ -54,7 +54,7 @@ export class CellBlock {
         this.CellStack.push(c)
     }
 
-    AddNewCellBelowLast(format: FormatTypes, contents: string | number) {
+    AddNewCellBelowLast(format: FormatType, contents: string | number) {
         let row: number;
         let col: number;
         let lastLoc: [number, number];

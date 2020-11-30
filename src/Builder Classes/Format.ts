@@ -2,21 +2,25 @@
 import { CellFormatter } from "../Builder Classes/CellFormatter";
 
 export class Format {
-    Italic: boolean = false;
+    isItalic: boolean = false;
     Alignment: string = 'Center';
-    Bold: boolean = false;
-    Underline: boolean = false;
+    isBold: boolean = false;
+    isUnderlined: boolean = false;
     Background: string = 'none';
     Font: string = 'Calibri';
     FontColor: string = 'black';
     FontSize: number = 11;
-    BorderAll: boolean = false;
-    BorderTopBott: boolean = false;
+    hasBorderAll: boolean = false;
+    hasBorderTopBott: boolean = false;
+    hasBorderBott: boolean = false;
+    hasBorderLeftBott: boolean = false;
+    isDropDownList: boolean = false;
+    DropDownListItems: string | Excel.Range;
     Number : string;
     Formatter: CellFormatter = new CellFormatter();
 }
 
-export enum FormatTypes {
+export enum FormatType {
     Label,
     Input,
     Explanatory,
@@ -26,21 +30,27 @@ export enum FormatTypes {
     Units,
     Title,
     Reference,
-    SectionDivider
+    SectionDivider,
+    InputFromList,
+    BorderBott,
+    BorderLeftBott
 }
 
-export function GetFormatType(format: FormatTypes): Format {
+export function GetFormatType(format: FormatType): Format {
     switch(format) {
-        case FormatTypes.Label: { return new LabelCellFormat }
-        case FormatTypes.Input: { return new InputCellFormat }
-        case FormatTypes.Explanatory: { return new ExplanatoryCellFormat }
-        case FormatTypes.IntermediateResults: { return new IntermediateResultsCellFormat }
-        case FormatTypes.FinalResults: { return new FinalResultsCellFormat }
-        case FormatTypes.Equation: { return new EquationCellFormat }
-        case FormatTypes.Units: { return new UnitsCellFormat }
-        case FormatTypes.Title: { return new TitleCellFormat }
-        case FormatTypes.Reference: { return new ReferenceCellFormat }
-        case FormatTypes.SectionDivider: { return new SectionDividerFormat }
+        case FormatType.Label: { return new LabelCellFormat }
+        case FormatType.Input: { return new InputCellFormat }
+        case FormatType.Explanatory: { return new ExplanatoryCellFormat }
+        case FormatType.IntermediateResults: { return new IntermediateResultsCellFormat }
+        case FormatType.FinalResults: { return new FinalResultsCellFormat }
+        case FormatType.Equation: { return new EquationCellFormat }
+        case FormatType.Units: { return new UnitsCellFormat }
+        case FormatType.Title: { return new TitleCellFormat }
+        case FormatType.Reference: { return new ReferenceCellFormat }
+        case FormatType.SectionDivider: { return new SectionDividerFormat }
+        case FormatType.InputFromList: { return new InputFromListCellFormat}
+        case FormatType.BorderBott: { return new BorderBott }
+        case FormatType.BorderLeftBott: { return new BorderLeftBott}
         default: { return }
     }
 }
@@ -49,38 +59,45 @@ export class LabelCellFormat extends Format {
     Alignment: string = 'Right';
 }
 
-export class InputCellFormat extends Format {
-    Bold: boolean = true;
+export class InputFromListCellFormat extends Format {
+    isBold: boolean = true;
     Background: string = 'DAEEF3';
-    BorderAll: boolean = true;
+    hasBorderAll: boolean = true;
+    Number : string = '0.00';
+    isDropDownList: boolean = true;
+}
+
+export class InputCellFormat extends Format {
+    isBold: boolean = true;
+    Background: string = 'DAEEF3';
+    hasBorderAll: boolean = true;
     Number : string = '0.00';
 }
 
 export class ExplanatoryCellFormat extends Format {
-    Italic: boolean = true;
+    isItalic: boolean = true;
     Alignment: string = 'Left';
     FontColor: string = 'gray';
     FontSize: number = 10;
 }
 
 export class IntermediateResultsCellFormat extends Format {
-    BorderAll: boolean = true;
+    hasBorderAll: boolean = true;
     Number: string = '0.00';
 }
 
 export class FinalResultsCellFormat extends Format {
-    Bold: boolean = true;
+    isBold: boolean = true;
     FontSize: number = 12;
-    BorderAll: boolean = true;
+    hasBorderAll: boolean = true;
     Number: string = '0.00';
 }
 
 export class EquationCellFormat extends Format {
     Alignment: string = 'Left';
-    Italic: boolean = true;
+    isItalic: boolean = true;
     FontSize: number = 10;
 }
-
 
 export class UnitsCellFormat extends Format {
     Alignment: string = 'Left';
@@ -88,7 +105,7 @@ export class UnitsCellFormat extends Format {
 
 export class TitleCellFormat extends Format {
     Alignment: string = 'Left';
-    Bold: boolean = true;
+    isBold: boolean = true;
     FontSize: number = 14;
 }
 
@@ -99,10 +116,20 @@ export class ReferenceCellFormat extends Format {
 
 export class SectionDividerFormat extends Format {
     Alignment: string = 'Left';
-    Bold: boolean = true;
+    isBold: boolean = true;
     Background: string = 'C0C0C0'
     Font: string = 'Calibri'
     FontColor: string = 'white'
     FontSize: number = 12;
-    BorderTopBott = true;    
+    hasBorderTopBott = true;    
+}
+
+export class BorderBott extends Format {
+    Alignment: string = 'Center';
+    hasBorderBott = true;
+}
+
+export class BorderLeftBott extends Format {
+    Alignment: string = 'Center';
+    hasBorderLeftBott = true;
 }

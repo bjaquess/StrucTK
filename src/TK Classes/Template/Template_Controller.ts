@@ -1,34 +1,82 @@
 
-//import { Template_Model } from "./Template_Model"; 
-//import { Template_UI } from "./Template_UI";
-//import { TemplateInputParameters } from "./Template_InputParameters";
+import { Controller } from "../../Builder Classes/Controller";
+import { Template_InputBlock } from "./Template_InputBlock";
+import { Template_OutputBlock } from "./Template_OutputBlock";
+import { Template_InputParams } from "./Template_InputParameters";
+import { Template_Figures } from "./Template_Figures";
 
-/* export class Template_Controller {
-    // <-- Denotes line to customize for each new Design Block
-    //model: Template_Model; // <--
-    UI: Template_UI; // <--
+import { ParameterCellAddress } from "../../Builder Functions/ParameterCellAddress";
+import { ApplyCellFormats } from "../../Builder Functions/ApplyCellFormats";
+import { ApplyCellContents } from "../../Builder Functions/ApplyCellContents";
+
+
+export class Template_Controller extends Controller {
+
+    InputBlock: Template_InputBlock;
+    OutputBlock: Template_OutputBlock;
+    InputParams: Template_InputParams;
+    Figures: Template_Figures;
     
     constructor() {
-        this.UI = new Template_UI(); // <--
-        //this.model = new Template_Model(); // <--
+        super();
+        this.InputParams = new Template_InputParams();
+        this.InputBlock = new Template_InputBlock();
+        this.OutputBlock = new Template_OutputBlock();
+        this.Figures = new Template_Figures();
+        //this.onNewSheet = true;
+        //this.trialSheetName = "NewTemplate";
     }
 
-    async Execute(range: Excel.Range, row: number, col: number) {
-        this.UI.originXlCell = range;
-        this.UI.originXlCellRow = row;
-        this.UI.originXlCellCol = col;
+    async Execute(range: Excel.Range, row: number, col: number, shapes: Excel.ShapeCollection, charts: Excel.ChartCollection) {
+        this.charts = charts;
 
-        //this.UI.InputBlock.InputParameters;
-        this.UI.InputBlock.Build(this.UI.InputParams);
-        this.UI.OutputBlock.Build();
-        //this.UI.InputParameters = TemplateInputParameters();
-        //await this.UI.ApplyCellFormats(this.UI.InputBlock.CellStack());
-        //await this.UI.ApplyCellContents(this.UI.InputBlock.CellStack());
-        //await this.UI.ApplyCellFormats(this.UI.OutputBlock.CellStack());
+        this.InputBlock.Build(this.InputParams);
+        this.OutputBlock.Build();
+
+        this.Figures.Assemble();
+        this.Figures.Apply(shapes);
         
-        await this.UI.ApplyFormula(range, row, col, this.UI.OutputBlock.FormulaLocation());
+        await ApplyCellFormats(range, this.InputBlock.CellStack());
+        await ApplyCellFormats(range, this.OutputBlock.FormatStack());
         
-        //this.UI.ResultsToExcel();
+        await ApplyCellContents(range, this.InputBlock.CellStack());
+        await this.ApplyFormula(range, row, col, this.OutputBlock.FormulaLocation());
+
     }
 
-} */
+    async ApplyFormula(range: Excel.Range, row: number, col: number, location: [number, number]) {
+        let formula: string;
+        let origin: [number, number] = [row, col];
+        let address: string[] = [];
+        
+        address[0] = ParameterCellAddress(origin, this.InputParams.b.InputCell);
+        address[1] = ParameterCellAddress(origin, this.InputParams.d.InputCell);
+
+        formula = `=tk.template(${address[0]}, ${address[1]})`;
+
+        range.getOffsetRange(location[0], location[1]).formulas = [[ formula]];
+    }
+
+    //async TargetLocationOnNewSheet(sheetName: string) {
+        //this.newSheet = new NewSheet;
+        //this.newSheet.trialSheetName = sheetName;
+        //let name = await AddNewSheet(this.newSheet)
+        //await AddNewSheet(sheetName)
+        //.catch(() => console.error('Error in adding new worksheet'));
+        //.then(() => SheetNameOfActiveWS())
+        //.catch(() => console.error('Error in adding new worksheet'));
+        //this.SetTargetSheetName(name)
+    //}
+
+    //async TargetLocationSelectedCell() {
+        //let name = await SheetNameOfActiveWS()
+        //    .catch(() => console.error('Error in obtaining active worksheet name!'));
+        //this.SetTargetSheetName(name)
+    //}
+
+    //SetTargetSheetName(name: string | void) {
+    //    if (typeof name === 'string') {this.currentSheetName = name}
+    //    else {console.error('Error in assigning target sheet name')}
+    //}
+
+}
