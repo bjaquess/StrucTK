@@ -60,6 +60,10 @@ export class Component {
     return positions;
   }
 
+  printRows(...rows) {
+    rows.forEach(row => this.print(...row))
+  }
+
   print(...cells) {
     let pos = this.position;
     let initialColumn = pos.column;
