@@ -61,10 +61,10 @@ export class Component {
   }
 
   printRows(...rows) {
-    rows.forEach(row => this.print(...row))
+    rows.forEach(row => this.printRow(...row))
   }
 
-  print(...cells) {
+  printRow(...cells) {
     let pos = this.position;
     let initialColumn = pos.column;
     cells.forEach(cell => {
