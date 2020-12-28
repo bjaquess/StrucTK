@@ -45,6 +45,7 @@ export function Input(name) {
 
 export function Output(name) {
   return {
+    output: true,
     name: name,
     value: "",
     format: {

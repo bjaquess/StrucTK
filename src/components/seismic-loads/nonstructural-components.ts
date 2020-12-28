@@ -29,12 +29,9 @@ export async function execute(context) {
     [TextR("Fp"), Output("fpFinal"), Text("lbs")]
   )
 
-  // rewind to first output cell
-  component.position.row = component.position.row - 4;
-  component.position.column++;
   let f = Formula("TK.SEISMICNONSTRUCTURAL2",
                   component.getRange("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
-  component.printRow(f);
+  component.setFormula("fp", f);
 
   await context.sync();
 }

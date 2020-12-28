@@ -46,10 +46,15 @@ interface Params {
   [key: string]: string
 }
 
+interface Output {
+  [key: string]: Position
+}
+
 export class Component {
   context: any;
   position: Position;
   params: Params = {};
+  output: Output = {};
 
   async setPosition(context) {
     const selectedRange = context.workbook.getSelectedRange();
@@ -84,11 +89,22 @@ export class Component {
       range.values = cell.value;
       if (cell.input) {
         // add to params, remember position
-        this.params[cell.name] = `${numberToLetters(pos.column)}${pos.row+1}`
+        this.params[cell.name] = `${numberToLetters(pos.column)}${pos.row+1}`;
+      }
+      if (cell.output) {
+        // remember position
+        this.output[cell.name] = Object.assign({}, pos);
       }
       pos.column++;
     })
     pos.column = initialColumn;
     pos.row++;
+  }
+
+  setFormula(outputParamName, formula) {
+    let cell = this.output[outputParamName];
+    console.log(cell);
+    let range = cell.sheet.getCell(cell.row, cell.column);
+    range.values = formula.value;
   }
 }
