@@ -16,6 +16,18 @@ Office.initialize = () => {
   document.getElementById('LoadComboTable').onclick = onclick_LoadCombinations;
 }
 
+const buttons = Array.from(document.querySelectorAll('.action-load-component'))
+buttons.map(async button => {
+  if (button instanceof HTMLElement) {
+    button.onclick = async () => {
+      const component = await import(`../components/${button.dataset.module}`)
+      await Excel.run(async context => {
+        component.render(context)
+      });
+    }
+  }
+})
+
 import { onclick_LoadCombinations } from "../TK Classes/Load Combinations/LoadCombinations_Controller";
 
 import { ConcFlexure_Controller } from "../TK Classes/Concrete Flexure/ConcFlexure_Controller";
