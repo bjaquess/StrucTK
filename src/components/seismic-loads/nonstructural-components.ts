@@ -30,11 +30,11 @@ export async function execute(context) {
   )
 
   // rewind to first output cell
-  c.position.row = c.position.row - 4;
-  c.position.column++;
+  component.position.row = component.position.row - 4;
+  component.position.column++;
   let f = Formula("TK.SEISMICNONSTRUCTURAL2",
-                  c.getRange("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
-  c.print(f);
+                  component.getRange("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
+  component.printRow(f);
 
   await context.sync();
 }

@@ -31,6 +31,7 @@ export function Input(name) {
     name: name,
     value: "",
     format: {
+      numberFormat: "0.00",
       font: {
         bold: true,  
       },
@@ -47,6 +48,7 @@ export function Output(name) {
     name: name,
     value: "",
     format: {
+      numberFormat: "0.00",
       borders: true
     }
   }

@@ -1,11 +1,22 @@
 function applyFormatting(cell, format) {
   for (const property in format) {
+
+    // borders
     if (property === 'borders') {
       ['Top', 'Bottom', 'Left', 'Right'].forEach(side => {
         cell.format.borders.getItem('Edge' + side).style = 'Continuous';
       })
       continue;
     }
+
+    // number formatting
+    if (property === 'numberFormat') {
+      let nf = format[property];
+      cell.numberFormat = [[nf]];
+      continue;
+    }
+    
+    // font, background, etc...
     if (typeof format[property] === "object"){
       for (const option in format[property]) {
         cell.format[property][option] = format[property][option];
