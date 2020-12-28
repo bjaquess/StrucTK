@@ -48,6 +48,22 @@ export function seismicNonstructural(Sds : number, ap : number, Rp : number, Ip 
   return nsc.ResultsArray(Sds, ap, Rp, Ip, z, h, Wp);
 }
 
+import SeismicNonStructuralComponentsModel from "../models/seismic-loads/nonstructural-components";
+/**
+ * Seismic loads for non-structural elements
+ * @customfunction seismicNonstructural2
+ * @param {number} Sds Design spectral acceleration
+ * @param {number} ap Component-specific coefficient
+ * @param {number} Rp Component-specific coefficient
+ * @param {number} Ip Importance factor
+ * @param {number} z Height of component within building
+ * @param {number} h Height of building
+ * @returns {any[][]} The seismic design load in the horizontal direction.
+ */
+export function seismicNonstructural2(Sds : number, ap : number, Rp : number, Ip : number, z : number, h : number, Wp : number) : any[][] {
+  return SeismicNonStructuralComponentsModel(Sds, ap, Rp, Ip, z, h, Wp);
+}
+
 import { Template_Model } from "../TK Classes/Template/Template_Model";
 /**
  * Template for StrucTK design aids

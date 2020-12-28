@@ -67,7 +67,7 @@ export class Component {
       let range = pos.sheet.getCell(pos.row, pos.column);
       applyFormatting(range, cell.format);
       range.values = cell.value;
-      if (cell.name) {
+      if (cell.input) {
         // add to params, remember position
         this.params[cell.name] = `${numberToLetters(pos.column)}${pos.row+1}`
       }

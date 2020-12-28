@@ -27,6 +27,7 @@ export function TextR(value) {
 
 export function Input(name) {
   return {
+    input: true,
     name: name,
     value: "",
     format: {
@@ -36,6 +37,16 @@ export function Input(name) {
       fill: {
         color: 'DAEEF3'
       },
+      borders: true
+    }
+  }
+}
+
+export function Output(name) {
+  return {
+    name: name,
+    value: "",
+    format: {
       borders: true
     }
   }
