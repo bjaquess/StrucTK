@@ -16,13 +16,13 @@ Office.initialize = () => {
   document.getElementById('LoadComboTable').onclick = onclick_LoadCombinations;
 }
 
-const buttons = Array.from(document.querySelectorAll('.action-load-component'))
+const buttons = Array.from(document.querySelectorAll('.action-load-component'));
 buttons.map(async button => {
   if (button instanceof HTMLElement) {
     button.onclick = async () => {
-      const component = await import(`../components/${button.dataset.module}`)
+      const component = await import(`../components/${button.dataset.module}`);
       await Excel.run(async context => {
-        component.render(context)
+        await component.execute(context);
       });
     }
   }
