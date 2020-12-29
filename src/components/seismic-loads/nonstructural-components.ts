@@ -29,8 +29,9 @@ export async function execute(context) {
     [TextR("Fp"), Output("fpFinal"), Text("lbs")]
   )
 
+  // insert formula into first `Fp` cell
   let f = Formula("TK.SEISMICNONSTRUCTURAL2",
-                  component.getRange("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
+                  component.getCellAddress("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
   component.setFormula("fp", f);
 
   await context.sync();
