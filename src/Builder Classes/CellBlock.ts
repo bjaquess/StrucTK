@@ -1,4 +1,5 @@
 import { GenericCell } from "./Cell";
+// eslint-disable-next-line no-unused-vars
 import { FormatType, GetFormatType } from "./Format";
 
 export class CellBlock {

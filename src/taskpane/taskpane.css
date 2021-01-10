@@ -92,6 +92,14 @@ b {
     height: 20px;
     background-color: white;
     border-style: none;
+    color: #0078d7;
+}
+
+.ms-Button.ms-Button--inactive {
+    margin-top: 2px;
+    height: 20px;
+    background-color: white;
+    border-style: none;
 }
 
 .ms-Button.ms-Button--standard:hover {

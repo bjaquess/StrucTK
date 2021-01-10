@@ -1,3 +1,5 @@
+/* global console */
+
 interface Position {
   sheet: Excel.Worksheet,
   row: number, 
@@ -37,7 +39,15 @@ export class Component {
     // get cell address for input parameters as array, e.g. ["A3", "A4", "A5"]
     let positions = [];
     for (let input of inputs) {
-      positions.push(this.params[input]);
+      if (typeof input === 'string') {
+        positions.push(this.params[input]);
+      }
+      if (Array.isArray(input)) {
+        let rangeStart: string = this.params[input[0]];
+        let rangeEnd: string = this.params[input[1]];
+        let rangeAddress: string = rangeStart + ':' + rangeEnd;
+        positions.push(rangeAddress);
+      }
     }
     return positions;
   }
@@ -71,6 +81,27 @@ export class Component {
     pos.row++;
   }
 
+  printCell(row: number, col: number, cell) {
+    let pos: Position = {
+      sheet: this.position.sheet,
+      row: row,
+      column: col
+    };
+    let range = this.position.sheet.getCell(row, col);
+    applyFormatting(range, cell.format);
+    range.values = cell.value;
+    if (cell.input) {
+      // remember position as cell address, e.g. "B3"
+      // useful for formulas
+      this.params[cell.name] = `${numberToLetters(col)}${row+1}`;
+    }
+    if (cell.output) {
+      // remember position for setFormula()
+      // insert formula into specific cell (selected by output value name)
+      this.output[cell.name] = Object.assign({}, pos);
+    }
+  }
+
   setFormula(outputParamName, formula) {
     let cell = this.output[outputParamName];
     console.log(cell);
@@ -97,6 +128,23 @@ function applyFormatting(cell, format) {
       continue;
     }
     
+    // drop-down lists
+    if (property === 'dropDownList') {
+      cell.format.font.underline = 'Single';
+      cell.dataValidation.rule = {
+        list: {
+          inCellDropDown: true,
+          source: format[property]
+        }
+      }
+      continue;
+    }
+
+    // merged cells
+    if (property === 'mergedCells') {
+      cell.getResizedRange(0,format[property]).merge(true);
+    }
+
     // font, background, etc...
     if (typeof format[property] === "object"){
       for (const option in format[property]) {

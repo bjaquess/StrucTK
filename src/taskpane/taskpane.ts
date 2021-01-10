@@ -18,6 +18,7 @@ Office.initialize = () => {
 
 const buttons = Array.from(document.querySelectorAll('.action-load-component'));
 buttons.map(async button => {
+  // eslint-disable-next-line no-undef
   if (button instanceof HTMLElement) {
     button.onclick = async () => {
       const component = await import(`../components/${button.dataset.module}`);

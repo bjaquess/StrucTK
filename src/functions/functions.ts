@@ -64,6 +64,25 @@ export function seismicNonstructural2(Sds : number, ap : number, Rp : number, Ip
   return SeismicNonStructuralComponentsModel(Sds, ap, Rp, Ip, z, h, Wp);
 }
 
+import SteelWFBeamDesign from "../models/steel-beam-design/steel-wf-beam-design";
+/**
+ * Steel WF Beam Design
+ * @customfunction steelWFBeamDesign
+ * @param {number} L Beam span
+ * @param {string[][]} ContLb Continuous flange bracing condition
+ * @param {number[][]} LbLocs Locations of top & bottom flange bracing points
+ * @param {number[][]} MaterialProps Material properties
+ * @param {number[][]} DefLimits Deflection limits
+ * @param {number[][]} PtLoads Point loads
+ * @param {number[][]} DistLoads Distributed loads
+ * @param {string} WFShape WF shape 
+ */
+export function steelWFBeamDesign(L: number, ContLb: string[][], LbLocs: number[][], MaterialProps: number[][], DefLimits: number[][], PtLoads: number[][], DistLoads: number[][], WFShape: string): any[][] {
+  return SteelWFBeamDesign(L, ContLb, LbLocs, MaterialProps, DefLimits, PtLoads, DistLoads, WFShape);
+}
+
+
+
 import { Template_Model } from "../TK Classes/Template/Template_Model";
 /**
  * Template for StrucTK design aids

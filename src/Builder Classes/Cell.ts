@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { IntermediateResultsCellFormat, EquationCellFormat, ExplanatoryCellFormat, InputCellFormat, LabelCellFormat, FinalResultsCellFormat, UnitsCellFormat, TitleCellFormat, ReferenceCellFormat, Format} from './Format';
 
 
