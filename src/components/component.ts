@@ -1,3 +1,5 @@
+import {parse} from 'papaparse';
+
 /* global console */
 
 interface Position {
@@ -115,7 +117,7 @@ export class Component {
     range.values = formula.value;
   }
 
-  insertImage(img, {moveX = 0, moveY = 0, scale = 1}: ImgPos) {
+  insertImage(img: string, {moveX = 0, moveY = 0, scale = 1}: ImgPos) {
     // moveX, moveY - number of cells
     const ExcelCellWidth = 48;
     const ExcelCellHeight = 15.1;
@@ -124,6 +126,20 @@ export class Component {
     shape.incrementTop(ExcelCellHeight*(this.position.row + moveY));
     shape.lockAspectRatio = true;
     shape.scaleWidth(scale, Excel.ShapeScaleType.currentSize, Excel.ShapeScaleFrom.scaleFromTopLeft);
+  }
+
+  parseCSV(context, file: string, callback: (row) => void) {
+    parse(`https://localhost:3000/assets/${file}.csv`, {
+      download: true,
+      header: true,
+      worker: true,
+      step: function(row) {
+        callback(row.data);
+      },
+      complete: async function() {
+        await context.sync(); 
+      }
+    });
   }
 }
 

@@ -37,6 +37,15 @@ export async function execute(context) {
     component.getCellAddress("Sds", "ap", "Rp", "Ip", "z", "h", "Wp"));
   component.setFormula("fp", f);
 
+  component.position.row++; // empty row
+
+  // proposal - API to get data from large CSV
+  component.parseCSV(context, "dataset", (row) => {
+    if (row.year === "2019" && row.industry_name_ANZSIC === "Construction") {
+      component.printRow(Text(row.variable), Text(row.value), Text(row.unit));
+    }
+  });
+
   await context.sync();
 }
 
