@@ -16,6 +16,12 @@ interface Output {
   [key: string]: Position
 }
 
+interface ImgPos {
+  moveX: number,
+  moveY: number,
+  scale: number
+}
+
 export class Component {
   position: Position; // track position in document for printRow() / printRows()
   params: Params = {}; // input parameters
@@ -107,6 +113,17 @@ export class Component {
     console.log(cell);
     let range = cell.sheet.getCell(cell.row, cell.column);
     range.values = formula.value;
+  }
+
+  insertImage(img, {moveX = 0, moveY = 0, scale = 1}: ImgPos) {
+    // moveX, moveY - number of cells
+    const ExcelCellWidth = 48;
+    const ExcelCellHeight = 15.1;
+    let shape = this.position.sheet.shapes.addImage(img);
+    shape.incrementLeft(ExcelCellWidth*(this.position.column + moveX));
+    shape.incrementTop(ExcelCellHeight*(this.position.row + moveY));
+    shape.lockAspectRatio = true;
+    shape.scaleWidth(scale, Excel.ShapeScaleType.currentSize, Excel.ShapeScaleFrom.scaleFromTopLeft);
   }
 }
 
