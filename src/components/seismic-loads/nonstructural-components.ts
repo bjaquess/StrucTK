@@ -40,11 +40,18 @@ export async function execute(context) {
   component.position.row++; // empty row
 
   // proposal - API to get data from large CSV
-  component.parseCSV(context, "dataset", (row) => {
-    if (row.year === "2019" && row.industry_name_ANZSIC === "Construction") {
+  const filter = (row) => {
+    if (row.year === 2019 && row.industry_name_ANZSIC === "Construction") {
+      return row;
+    }
+  }
+  const action = (result) => {
+    result.sort((a, b) => b.value - a.value) // descending order, "value" field
+    for (let row of result) {
       component.printRow(Text(row.variable), Text(row.value), Text(row.unit));
     }
-  });
+  }
+  component.parseCSV(context, "dataset", filter, action);
 
   await context.sync();
 }
