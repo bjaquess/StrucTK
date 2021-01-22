@@ -128,15 +128,24 @@ export class Component {
     shape.scaleWidth(scale, Excel.ShapeScaleType.currentSize, Excel.ShapeScaleFrom.scaleFromTopLeft);
   }
 
-  parseCSV(context, file: string, callback: (row) => void) {
+  parseCSV(context,
+           file: string,
+           filter: (row:object) => Array<object> | void,
+           action: (result: Array<object>) => void) {
+    let result = [];
     parse(`https://localhost:3000/assets/${file}.csv`, {
-      download: true,
-      header: true,
-      worker: true,
+      download: true, // download from string above
+      header: true, // return each row as object with fields
+      worker: true, // use Web Worker to avoid UI freeze
+      dynamicTyping: true, // convert strings to numbers
       step: function(row) {
-        callback(row.data);
+        let resultRow = filter(row.data);
+        if ( resultRow ) {
+          result.push(resultRow);
+        }
       },
       complete: async function() {
+        action(result);
         await context.sync(); 
       }
     });
