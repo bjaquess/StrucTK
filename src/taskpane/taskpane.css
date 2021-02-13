@@ -106,15 +106,29 @@ b {
 }
 
 nav {
-    padding: 10px 30px;
+    padding: 10px;
 }
 
 h1, h2, button {
     cursor:  pointer;
+    padding: 10px 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+h1:hover, h2:hover {
+    color: rgb(0, 120, 212);
+    background-color: rgb(243, 242, 241);
+}
+
+section ul li > button:hover {
+    color: rgb(0, 120, 212);
 }
 
 h2 {
     font-size: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 section ul {
@@ -126,6 +140,38 @@ section ul li > button {
     background: none;
     border: none;
     outline: none;
+    padding: 10px;
+}
+
+form {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px dashed #eee;
+}
+
+form button {
+    background: rgb(0, 120, 212);
+    padding: 5px 20px;
+    color: white;
+    border: 1px solid rgb(0, 120, 212);
+    border-radius: 2px;
+    font-weight: bold;
+    outline: none;
+}
+
+form select {
+    padding: 10px 5px;
     margin-bottom: 10px;
-    padding: 0px;
+    width: 200px;
+    border-radius: 2px;
+    background: white;
+}
+
+.checkbox {
+    margin-bottom: 15px;
+}
+
+.checkbox input {
+    margin-left: -1px;
+    margin-right: 5px;
 }

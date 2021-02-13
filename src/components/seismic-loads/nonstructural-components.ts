@@ -1,8 +1,15 @@
 import {Heading, Text, TextREq, Input, OutputWithBorder, Empty, Hint, Formula} from "../../cells/cells";
 import {Component} from "../component"
+import {AddNewSheet} from "../../Builder Functions/AddNewSheet";
 
-export async function execute(context) {
+export async function execute(context, options = {newSheet: false}) {
   let component = new Component();
+
+  if (options.newSheet) {
+    console.log(options.newSheet)
+    // await AddNewSheet("Seismic Demands on Nonstructural Components");
+  }
+
   await component.setPosition(context);
 
   // proposal - API preview for images
