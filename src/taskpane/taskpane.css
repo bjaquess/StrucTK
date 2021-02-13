@@ -1,8 +1,3 @@
-/* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
-
  html,
  body {
      width: 100%;
@@ -20,9 +15,7 @@
     padding: 20px;
     padding-bottom: 20px;
     padding-top: 50px;
-    display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: column;
     flex-direction: column;
     align-items: center;
  }
@@ -30,13 +23,9 @@
  .ms-welcome__main {
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: column;
     flex-direction: column;
-    -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    -webkit-align-items: center;
     align-items: center;
-    -webkit-flex: 1 0 0;
     flex: 1 0 0;
     padding: 10px 20px;
  }
@@ -106,4 +95,37 @@ b {
     color: #005a9e;
     cursor: pointer;
     background-color: #eaeaea;
+}
+
+#run {
+    margin-bottom: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+nav {
+    padding: 10px 30px;
+}
+
+h1, h2, button {
+    cursor:  pointer;
+}
+
+h2 {
+    font-size: 14px;
+}
+
+section ul {
+    margin-left: 20px;
+    list-style: none;
+}
+
+section ul li > button {
+    background: none;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    padding: 0px;
 }
