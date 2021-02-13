@@ -7,7 +7,7 @@ const devMode = false;
 
 Office.initialize = () => {
   // hide submenu, forms by default
-  !devMode && hideComponents()
+  !devMode && hideSubNav()
   // Browse Structural Toolkit
   u("#run").on("click", showNav);
   devMode && showNav();
@@ -15,7 +15,15 @@ Office.initialize = () => {
   initializeForms();
 }
 
-const hideComponents = () => {
+const loadComponent = async (id, options = {}) => {
+  console.log(options);
+  const component = await import(`../components/${id}`);
+  await Excel.run(async context => {
+    await component.execute(context, options);
+  });
+}
+
+const hideSubNav = () => {
   u("section ul").addClass("hidden");
   u("section ul li > button").addClass("hidden");
   u("section ul li > form").addClass("hidden");
@@ -41,16 +49,12 @@ const initializeTree = () => {
   u("li > button").on("click", async function(){
     let id = u(this).nodes[0].id;
     if (id.includes("toggle-form")) {
-      // show form
+      // show form - component settings
       let formName = id.replace("toggle-form-", "")
       u(`#${formName}`).toggleClass("hidden");
     } else {
-      // load component
-      console.log(id);
-      const component = await import(`../components/${id}`);
-      await Excel.run(async context => {
-        await component.execute(context);
-      });
+      // load component immediately
+      await loadComponent(id);
     }
   })
 }
@@ -72,9 +76,6 @@ function initializeForms() {
 
     // load component
     let id = u(this).nodes[0].id;
-    const component = await import(`../components/${id}`);
-    await Excel.run(async context => {
-      await component.execute(context, options);
-    });
+    await loadComponent(id, options);
   })
 }

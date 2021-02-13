@@ -6,7 +6,6 @@ export async function execute(context, options = {newSheet: false}) {
   let component = new Component();
 
   if (options.newSheet) {
-    console.log(options.newSheet)
     // await AddNewSheet("Seismic Demands on Nonstructural Components");
   }
 
